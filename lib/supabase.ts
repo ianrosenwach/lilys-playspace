@@ -1,9 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 export type GameScore = {
   id: number
@@ -13,8 +8,22 @@ export type GameScore = {
   created_at: string
 }
 
-export async function saveScore(gameId: string, score: number, total: number) {
-  const { data, error } = await supabase
+function getClient(): SupabaseClient | null {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!url || !key || !url.startsWith('http')) return null
+  try {
+    return createClient(url, key)
+  } catch {
+    return null
+  }
+}
+
+export async function saveScore(gameId: string, score: number, total: number): Promise<GameScore | null> {
+  const client = getClient()
+  if (!client) return null
+
+  const { data, error } = await client
     .from('game_scores')
     .insert([{ game_id: gameId, score, total }])
     .select()
@@ -28,7 +37,10 @@ export async function saveScore(gameId: string, score: number, total: number) {
 }
 
 export async function getLastScore(gameId: string): Promise<GameScore | null> {
-  const { data, error } = await supabase
+  const client = getClient()
+  if (!client) return null
+
+  const { data, error } = await client
     .from('game_scores')
     .select('*')
     .eq('game_id', gameId)

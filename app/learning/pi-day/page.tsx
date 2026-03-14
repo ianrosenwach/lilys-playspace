@@ -437,8 +437,6 @@ function QuizScreen({ goTo, onFinish }: { goTo: (s: Screen) => void; onFinish: (
       setAnswered(false)
       setSelected(null)
     } else {
-      onFinish(score + (isCorrect ? 0 : 0), total)
-      // score is updated via state, pass current accumulated
       onFinish(isCorrect ? score + 1 : score, total)
     }
   }
