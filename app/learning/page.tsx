@@ -13,6 +13,16 @@ const games = [
     color: 'pink' as const,
     badge: '🎂 March 14',
   },
+  {
+    id: 'states',
+    href: '/learning/states',
+    icon: '🗺️',
+    title: 'State Explorer',
+    description: 'Can you name all 50 states? The map lights up pink — type the state name and explore the whole country!',
+    tags: ['Geography', 'USA', 'Game'],
+    color: 'teal' as const,
+    badge: null,
+  },
 ]
 
 function GameCard({ game }: { game: typeof games[0] }) {
@@ -63,7 +73,11 @@ function GameCard({ game }: { game: typeof games[0] }) {
         </div>
         <div
           className="flex-none rounded-full flex items-center justify-center"
-          style={{ width: 36, height: 36, background: 'linear-gradient(135deg,#FF78C4,#FF4FAE)', boxShadow: '0 4px 12px rgba(255,80,174,0.3)' }}
+          style={{
+            width: 36, height: 36,
+            background: isPink ? 'linear-gradient(135deg,#FF78C4,#FF4FAE)' : 'linear-gradient(135deg,#30D4A8,#00A880)',
+            boxShadow: isPink ? '0 4px 12px rgba(255,80,174,0.3)' : '0 4px 12px rgba(0,168,128,0.3)',
+          }}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" width={14} height={14}>
             <path d="M5 12h14M12 5l7 7-7 7" />
