@@ -15,6 +15,7 @@ export default function WaveFooter() {
       <div className="bg-[#FF4FAE] py-5 text-center">
         <p className="text-[18px] font-bold text-white tracking-tight">Lily&apos;s Playspace</p>
         <p className="text-white/70 text-[12px] mt-0.5">✦ ✦ ✦ ✦ ✦</p>
+        <p className="text-white/50 text-[11px] mt-2">© 2026 Lily&apos;s Playspace</p>
       </div>
     </div>
   )
