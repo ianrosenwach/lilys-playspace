@@ -427,7 +427,7 @@ export default function HouseGame() {
     el.style.top = y + '%'
     stage.appendChild(el)
 
-    setUsedEmojis(prev => new Set([...prev, emoji]))
+    setUsedEmojis(prev => new Set(Array.from(prev).concat(emoji)))
     setLilyMsg(LILY_CHEERS[Math.floor(Math.random() * LILY_CHEERS.length)])
     makeDraggable(el, stage)
   }
