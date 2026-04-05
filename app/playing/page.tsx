@@ -13,10 +13,26 @@ const games = [
     color: 'pink' as const,
     badge: null,
   },
+  {
+    id: 'stuffies',
+    href: '/playing/stuffies',
+    icon: '🧸',
+    title: 'My Stuffies',
+    description: 'Pick your favourite stuffed animals, fill a basket, decorate it with ribbons and stickers, then save your creation!',
+    tags: ['Stuffies', 'Creative', 'Fun'],
+    color: 'teal' as const,
+    badge: null,
+  },
 ]
 
 function GameCard({ game }: { game: typeof games[0] }) {
   const isPink = game.color === 'pink'
+  const gradient = isPink
+    ? 'linear-gradient(135deg,#FF78C4,#FF4FAE)'
+    : 'linear-gradient(135deg,#30D4A8,#00A880)'
+  const shadow = isPink
+    ? '0 4px 12px rgba(255,80,174,0.3)'
+    : '0 4px 12px rgba(0,168,128,0.3)'
   return (
     <Link
       href={game.href}
@@ -30,7 +46,7 @@ function GameCard({ game }: { game: typeof games[0] }) {
       <div className="flex items-start gap-4">
         <div
           className="flex-none rounded-[18px] flex items-center justify-center text-[32px]"
-          style={{ width: 64, height: 64, background: isPink ? 'linear-gradient(135deg,#FF78C4,#FF4FAE)' : 'linear-gradient(135deg,#30D4A8,#00A880)' }}
+          style={{ width: 64, height: 64, background: gradient }}
         >
           {game.icon}
         </div>
@@ -54,7 +70,7 @@ function GameCard({ game }: { game: typeof games[0] }) {
               <span
                 key={tag}
                 className="text-[11.5px] font-semibold px-3 py-1 rounded-[12px]"
-                style={{ background: isPink ? 'linear-gradient(135deg,#FF78C4,#FF4FAE)' : 'linear-gradient(135deg,#30D4A8,#00A880)', color: '#fff' }}
+                style={{ background: gradient, color: '#fff' }}
               >
                 {tag}
               </span>
@@ -65,8 +81,8 @@ function GameCard({ game }: { game: typeof games[0] }) {
           className="flex-none rounded-full flex items-center justify-center"
           style={{
             width: 36, height: 36,
-            background: isPink ? 'linear-gradient(135deg,#FF78C4,#FF4FAE)' : 'linear-gradient(135deg,#30D4A8,#00A880)',
-            boxShadow: isPink ? '0 4px 12px rgba(255,80,174,0.3)' : '0 4px 12px rgba(0,168,128,0.3)',
+            background: gradient,
+            boxShadow: shadow,
           }}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" width={14} height={14}>
@@ -116,22 +132,6 @@ export default function PlayingPage() {
           <GameCard key={game.id} game={game} />
         ))}
 
-        {/* Coming soon placeholder */}
-        <div
-          className="rounded-[24px] p-6 flex items-center gap-4"
-          style={{ background: '#fff', border: '1.5px dashed #FFD6EE', opacity: 0.6 }}
-        >
-          <div
-            className="flex-none rounded-[18px] flex items-center justify-center text-[28px]"
-            style={{ width: 64, height: 64, background: '#FFF0F9' }}
-          >
-            🌟
-          </div>
-          <div>
-            <p className="text-[16px] font-bold" style={{ color: '#1A0818' }}>More games coming soon!</p>
-            <p className="text-[13px] font-medium" style={{ color: '#7B3566' }}>New adventures are on the way...</p>
-          </div>
-        </div>
       </div>
 
       <WaveFooter />
